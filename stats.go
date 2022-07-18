@@ -27,10 +27,11 @@ package main
 
 import (
 	"bufio"
-	"golang.org/x/crypto/ssh"
 	"strconv"
 	"strings"
 	"time"
+
+	"golang.org/x/crypto/ssh"
 )
 
 type FSInfo struct {
@@ -72,22 +73,24 @@ type CPUInfo struct {
 }
 
 type Stats struct {
-	Uptime       time.Duration
-	Hostname     string
-	Load1        string
-	Load5        string
-	Load10       string
-	RunningProcs string
-	TotalProcs   string
-	MemTotal     uint64
-	MemFree      uint64
-	MemBuffers   uint64
-	MemCached    uint64
-	SwapTotal    uint64
-	SwapFree     uint64
-	FSInfos      []FSInfo
-	NetIntf      map[string]NetIntfInfo
-	CPU          CPUInfo // or []CPUInfo to get all the cpu-core's stats?
+	Uptime       time.Duration          `json:"uptime,omitempty"`
+	Hostname     string                 `json:"hostname,omitempty"`
+	Load1        string                 `json:"load_1,omitempty"`
+	Load5        string                 `json:"load_5,omitempty"`
+	Load10       string                 `json:"load_10,omitempty"`
+	RunningProcs string                 `json:"running_procs,omitempty"`
+	TotalProcs   string                 `json:"total_procs,omitempty"`
+	MemTotal     uint64                 `json:"mem_total,omitempty"`
+	MemFree      uint64                 `json:"mem_free,omitempty"`
+	MemBuffers   uint64                 `json:"mem_buffers,omitempty"`
+	MemCached    uint64                 `json:"mem_cached,omitempty"`
+	SwapTotal    uint64                 `json:"swap_total,omitempty"`
+	SwapFree     uint64                 `json:"swap_free,omitempty"`
+	FSInfos      []FSInfo               `json:"fs_infos,omitempty"`
+	NetIntf      map[string]NetIntfInfo `json:"net_intf,omitempty"`
+	CPU          CPUInfo                `json:"cpu,omitempty"` // or []CPUInfo to get all the cpu-core's stats?
+	Time         int64                  `json:"time,omitempty"`
+	HostIP       string                 `json:"host_ip,omitempty"`
 }
 
 func getAllStats(client *ssh.Client, stats *Stats) {
